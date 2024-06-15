@@ -54,8 +54,8 @@ if ($groundwater_data === NULL) {
 
 // 임계값 설정
 $threshold_rain = 50.0; // mm
-$threshold_humidity = 90.0; // %
-$threshold_tilt = 15.0; // degrees
+$threshold_humidity = 40.0; // %
+$threshold_tilt = 20.0; // degrees
 $groundwater_risk = false; // 지하수 위험 여부 초기화
 
 // 기상 데이터 분석
@@ -87,7 +87,7 @@ if (isset($groundwater_data['response']['result']['featureCollection']['features
 
 // 센서 데이터 가져오기 (fake_mpu_data)
 $sensor_data_mpu6050 = [];
-$sql_mpu = "SELECT * FROM fake_mpu_data ORDER BY timestamp DESC LIMIT 48";
+$sql_mpu = "SELECT * FROM mpu_data ORDER BY timestamp DESC LIMIT 48";
 $result_mpu = $conn->query($sql_mpu);
 
 if ($result_mpu->num_rows > 0) {
@@ -109,7 +109,7 @@ if ($result_mpu->num_rows > 0) {
 
 // 센서 데이터 가져오기 (fake_soil_data)
 $sensor_data_ppa800 = [];
-$sql_soil = "SELECT * FROM fake_soil_data ORDER BY timestamp DESC LIMIT 48";
+$sql_soil = "SELECT * FROM soil_data ORDER BY timestamp DESC LIMIT 48";
 $result_soil = $conn->query($sql_soil);
 
 if ($result_soil->num_rows > 0) {
@@ -173,23 +173,28 @@ foreach ($groundwater_data['response']['result']['featureCollection']['features'
 $message = '';
 $alert_status = 'safe';
 
-if ($rain_total >= $threshold_rain && $high_humidity && $high_tilt) {
-    $alert_status = 'danger';
-    $message = "산사태 경고: 청주 지역에서 높은 위험이 감지되었습니다!\n";
-    $message .= " - 강수량: $rain_total mm\n";
-    $message .= " - 높은 습도: 네\n";
-    $message .= " - 높은 기울기: 네\n";
-    $message .= " - 지하수 위험: " . ($groundwater_risk ? "네" : "아니오") . "\n";
-} else if ($rain_total >= $threshold_rain || $high_humidity || $high_tilt) {
+if ($rain_total >= $threshold_rain || $high_humidity || $high_tilt) {
+   // require "/var/www/html/send_sms.php";
     $alert_status = 'warning';
     $message = "산사태 주의: 청주 지역에서 잠재적 위험이 감지되었습니다.\n";
     $message .= " - 강수량: $rain_total mm\n";
     $message .= " - 높은 습도: " . ($high_humidity ? "네" : "아니오") . "\n";
     $message .= " - 높은 기울기: " . ($high_tilt ? "네" : "아니오") . "\n";
     $message .= " - 지하수 위험: " . ($groundwater_risk ? "네" : "아니오") . "\n";
+       // 파일 경로
+     // shell_exec("php send_sms.php");
+   // echo $output;
+} else if ($rain_total >= $threshold_rain && $high_humidity && $high_tilt) {
+    $alert_status = 'danger';
+    $message = "산사태 경고: 청주 지역에서 높은 위험이 감지되었습니다!\n";
+    $message .= " - 강수량: $rain_total mm\n";
+    $message .= " - 높은 습도: 네\n";
+    $message .= " - 높은 기울기: 네\n";
+    $message .= " - 지하수 위험: " . ($groundwater_risk ? "네" : "아니오") . "\n";
 } else {
     $message = "청주 지역에서 큰 위험이 감지되지 않았습니다.";
 }
+
 
 echo json_encode([
     'status' => 'success',

@@ -44,10 +44,7 @@
       }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"/>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
   <body>
@@ -56,13 +53,17 @@
       <div id="alert"></div>
       <h2 id="date-time"></h2>
       <div id="weather-chart"></div>
+</br></br>
       <h2>지하수 데이터</h2>
       <div id="groundwater-info"></div>
-      <div id="map"></div>
-      <h2>기울기 센서 데이터</h2>
+      <div id="map" style="width: 100%; height: 400px; margin-top: 20px;"></div>
+</br></br>
+      <h2>산 기울기 변화</h2>
       <div id="incline-chart"></div>
-      <h2>토양습도 센서 데이터</h2>
+</br></br>
+      <h2>토양 수분 변동</h2>
       <div id="humidity-chart"></div>
+</br></br>
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -224,11 +225,10 @@
                 y: inclineValues,
                 mode: "lines+markers",
                 name: "기울기 센서 데이터",
-                line: { shape: "spline" },
+                line: { shape: "spline", color: "#2ca02c" },
               };
 
               const layoutIncline = {
-                title: "기울기 센서 데이터",
                 xaxis: { title: "시간" },
                 yaxis: { title: "기울기 (도)" },
               };
@@ -248,11 +248,10 @@
                 y: humidityValues,
                 mode: "lines+markers",
                 name: "토양습도 센서 데이터",
-                line: { shape: "spline" },
+                line: { shape: "spline", color: "#1f77b4" },
               };
 
               const layoutHumidity = {
-                title: "토양습도 센서 데이터",
                 xaxis: { title: "시간" },
                 yaxis: { title: "습도 (%)" },
               };
@@ -321,4 +320,3 @@
     </script>
   </body>
 </html>
-
