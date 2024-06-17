@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 
-$service_key = "%2F4WDEt5xuBAPWVxNjw0DRCHhV%2FRYIpMSI8iqayDK1gj4xEyhV3bd7fLirKTdCDPg8cWYph74ye%2B13YGZWgKMkQ%3D%3D";
+$service_key = "";
 $page_no = 1;
 $num_of_rows = 10;
 $data_type = "JSON";

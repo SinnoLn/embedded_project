@@ -109,7 +109,7 @@ function is_within_range($point, $bbox, $range = 0.01) {
 
 // 임계값 설정
 $threshold_rain = 50;  // 강수량 임계값 
-$threshold_humidity = 80;  // 습도 임계값 
+$threshold_humidity = 95;  // 습도 임계값 
 $threshold_tilt = 20;  // 기울기 임계값
 
 // 강수량 데이터 가져오기
