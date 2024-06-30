@@ -7,7 +7,7 @@ if ($mysqli->connect_error) {
 }
 
 // API 호출 설정
-$service_key = "5wl5BtMRM8BADvFJqBXLF+R21RhkpL9jIoSQLyOQHc95SQi5Nab5JTQHrbMQCgkRF3wH0iWBeZWNBKwbseyj+A==";  // 디코딩된 서비스 키
+$service_key = "your_key";  // 디코딩된 서비스 키
 $page_no = 1;
 $num_of_rows = 1000;
 $data_type = "JSON";

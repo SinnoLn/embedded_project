@@ -7,7 +7,7 @@ if ($mysqli->connect_error) {
 }
 
 // API 호출 설정
-$service_key = "6E3FF3C8-EF42-3E03-982D-555B07AB33F5";
+$service_key = "your key";
 $api_url = "https://api.vworld.kr/req/data";
 $query_params = '?' . http_build_query([
     'service' => 'data',
